@@ -2,14 +2,14 @@
 
 import boto3
 
-AWS_REGION = input("Enter the AWS_REGION Name")
-S3_BUCKET_NAME = input("Enter the bucket name")
-s3_client = boto3.client("s3", region_name=AWS_REGION)
+REGION = input("Enter the REGION Name")
+BUCKET_NAME = input("Enter the bucket name")
+client_for_s3 = boto3.client("s3", region_name=REGION)
 
 def signed_url(bucket_name, object_name):
-    url = s3_client.generate_presigned_url(ClientMethod='get_object',
+    s3_url= client_for_s3.generate_presigned_url(ClientMethod='get_object',
             Params={'Bucket': bucket_name, 'Key': object_name},
-            ExpiresIn=3600)
-    print(url)
+            ExpiresIn=2700)
+    print(s3_url)
 
-signed_url(S3_BUCKET_NAME, 'techhub.txt')
+signed_url(BUCKET_NAME, 'techhub.txt')
